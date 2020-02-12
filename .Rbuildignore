@@ -3,3 +3,4 @@
 README.md
 examples
 ^appveyor\.yml$
+^.travis.yml$

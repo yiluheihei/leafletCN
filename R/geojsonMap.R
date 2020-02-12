@@ -55,15 +55,15 @@ geojsonMap= function(dat,
                      weight = 1,
                      fillOpacity = 0.7,
                      legendTitle = "Legend",
-                     tileType = amap,
+                     tileType = NULL,
                      ...){
   if(class(dat) != 'data.frame'){
     stop("dat should be a data.frame")
   }
   if(is.null(namevar)){
-    name = dat[, 1] %>% toLabel()
+    name = dat[, 1]
   }else{
-    name = evalFormula(namevar,dat) %>% toLabel()
+    name = evalFormula(namevar,dat)
   }
   name = as.character(name)
 
@@ -75,7 +75,8 @@ geojsonMap= function(dat,
 
 
   countries <- readGeoLocal(mapName)
-  countries$label = toLabel(countries$name)
+  # countries$label = toLabel(countries$name)
+  countries$label = countries$name
   index = sapply(countries$label,function(x) which(name==x)[1])
 
   if(is.null(popup)){
@@ -129,19 +130,33 @@ geojsonMap= function(dat,
 
 
   map <- leaflet::leaflet(countries)
-  map %>% tileType %>%
-    leaflet::addPolygons(stroke = stroke,
-                smoothFactor = smoothFactor,
-                fillOpacity = fillOpacity,
-                weight = weight,
-                color = ~pal(value),
-                popup = ~htmltools::htmlEscape(popup)
+  if (is.null(tileType)) {
+    map %>%
+      leaflet::addPolygons(stroke = stroke,
+                           smoothFactor = smoothFactor,
+                           fillOpacity = fillOpacity,
+                           weight = weight,
+                           color = ~pal(value),
+                           popup = ~htmltools::htmlEscape(popup)
+      ) %>%
+      leaflet::addLegend("bottomright", pal = pal, values = ~value,
+                         title = legendTitle,
+                         labFormat = leaflet::labelFormat(prefix = ""),
+                         opacity = 1
+      )
+  } else {
+    map %>% tileType %>%
+      leaflet::addPolygons(stroke = stroke,
+                           smoothFactor = smoothFactor,
+                           fillOpacity = fillOpacity,
+                           weight = weight,
+                           color = ~pal(value),
+                           popup = ~htmltools::htmlEscape(popup)
     ) %>%
     leaflet::addLegend("bottomright", pal = pal, values = ~value,
-              title = legendTitle,
-              labFormat = leaflet::labelFormat(prefix = ""),
-              opacity = 1
+                       title = legendTitle,
+                       labFormat = leaflet::labelFormat(prefix = ""),
+                       opacity = 1
     )
-
-
+  }
 }

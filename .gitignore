@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+data-raw/map*
+data-raw/chinaMapJsonData-master

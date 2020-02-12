@@ -11,8 +11,8 @@ encodingSolution = function(str){
 
 ## read function
 readGeoLocal = function(city){
-  query = toLabel(city)
-  if(!any(leafletcn.map.names$label==query)){
+  # query = toLabel(city)
+  if(!city %in% c(mapNames$name, mapNames$label, "china")){
     stop(paste0("\n",
                 city,
                 ": this mapType cannot found!\n",
@@ -20,8 +20,10 @@ readGeoLocal = function(city){
                 "Valid mapTypes: regionNames()\n",
                 "Encoding convert: ?iconv"))
   }
-  file = paste0("geojson/",
-                leafletcn.map.names$files[leafletcn.map.names$label==query]
+
+  file = paste0(
+    "geojson/",
+    mapNames$files[mapNames$name == city | mapNames$label == city | mapNames$name_en == city]
   )
   filePath = system.file(file,package = "leafletCN")
 

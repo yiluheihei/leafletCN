@@ -11,10 +11,10 @@
 ##' regionNames('city')
 ##' @export
 
-regionNames = function(mapName=NULL){
+regionNames <-  function(mapName=NULL){
   # city = 'china'
   if(is.null(mapName)){
-    print(leafletcn.map.names$name)
+    print(mapNames$name)
     cat("\nThese are valid mapName~\n")
     return("NULL")
   }
