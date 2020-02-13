@@ -91,7 +91,14 @@ read.geoShape <- function (txt) {
         }
       })
   }
+
+  # for taiwan with no city data
+  if (is.null(dim(datPart))) {
+    datPart <- as.data.frame(datPart)
+  }
+
   rownames(datPart) = row.names(ployPart)
+
   ex_1.7 = sp::SpatialPolygonsDataFrame(ployPart, datPart)
   return(ex_1.7)
 }

@@ -29,6 +29,13 @@ readGeoLocal = function(city){
 
   # output = rgdal::readOGR(filePath, "OGRGeoJSON")
   output = read.geoShape(filePath)
+
+  # for taiwan
+  index <- mapNames$name == city | mapNames$label == city | mapNames$name_en == city
+  city_info <- mapNames[index, ]
+  if (city_info$name_en == "Taiwan"){
+    output$name <- city_info$label
+  }
   if(.Platform$OS.type == "windows"){
     output$name = encodingSolution(output$name)
   }
