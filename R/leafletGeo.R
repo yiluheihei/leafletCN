@@ -55,22 +55,22 @@ leafletGeo = function(mapName,
       stop("dat should be a data.frame")
     }
     if(is.null(namevar)){
-      name = dat[, 1] %>% toLabel()
+      name = dat[, 1]
     }else{
       name = evalFormula(namevar,dat)
     }
-    name = as.character(name) %>% toLabel()
+    name = as.character(name)
 
     if(is.null(valuevar)){
       value = dat[, 2]
     }else{
       value = evalFormula(valuevar,dat)
     }
-    countries <- readGeoLocal(mapName)
-    countries$label = toLabel(countries$name)
+    # countries <- readGeoLocal(mapName)
+    countries$label = countries$name
     index = sapply(countries$label,function(x) which(name==x)[1])
     countries$value = value[index]
-    countries$popup = countries$name
+    # countries$popup = countries$name
     return(
       countries
     )
