@@ -1,15 +1,6 @@
-#' Demo dataset and other function
+#' mapping names
 #'
-#' A data file of words and frequency from tm package
-#'
-#' @docType data
-#' @name leafletcn.map.names
-#' @format A data set cities and file names
-#'
-NULL
-
-#' @format List for merge
-#' @rdname leafletcn.map.names
-#' @name .triList
-NULL
-
+#' a dataset containing the map names and its geojson file path
+#' @name mapNames
+#' @format list
+"mapNames"
