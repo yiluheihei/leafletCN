@@ -40,7 +40,7 @@ readGeoLocal = function(city){
     output$name = encodingSolution(output$name)
   }
 
-  return(output)
+  return(fix_orphaned_hole(output))
 }
 
 ## .triList
@@ -86,4 +86,25 @@ evalFormula = function(x, data) {
       return(eval(as.name(tmpTerm), data, environment(x)))
     }),stringsAsFactors=F)
   }
+}
+
+#' Fix orphaned hole, ensure each polygon having an outer edge and an inner
+#' hole
+#'
+#' https://cran.r-project.org/web/packages/maptools/vignettes/combine_maptools.pdf
+#' https://github.com/MatMatt/MODIS/commit/1b14974063b371a69987e5ee218ee66f132b2d61#diff-786518131335adf2d5c6c59e7f1665a1
+fix_orphaned_hole <- function(x) {
+  polys <- slot(x, "polygons")
+  fixed <- lapply(polys, maptools::checkPolygonsHoles)
+
+  fixed_sp <- sp::SpatialPolygons(
+    fixed,
+    proj4string = sp::CRS((sp::proj4string(x)))
+  )
+
+  if (inherits(x, "SpatialPolygonsDataFrame")) {
+    fixed_sp <- sp::SpatialPolygonsDataFrame(fixed_sp, x@data)
+  }
+
+  fixed_sp
 }
