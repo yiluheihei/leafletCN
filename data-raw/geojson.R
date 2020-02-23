@@ -1,3 +1,4 @@
+library(magrittr)
 # download and tar origin geojson file ------------------------------------
 
 download.file("https://github.com/wenccro/chinaMapJsonData/archive/master.zip",
@@ -25,8 +26,8 @@ sapply(cmds, shell)
 china_cities <- get_china_cities()
 province <- unique(china_cities$Province)
 province_en <- unique(china_cities$Province_EN)
-province_name_full <- jsonlite::fromJSON("inst/geojson/china.json")$
-  features$properties$name
+province_name_full <- readr::read_csv("data-raw/province_full_name.csv") %>%
+  .$province_name_full
 
 # province index corresponding to province dir
 province_index <- sapply(province, function(x) which(grepl(x, province_name_full)))
@@ -58,14 +59,14 @@ file.copy(province_to_json, "inst/geojson/")
 # reference city to json file ---------------------------------------------
 
 mapNames <- data.frame(
-  name = c(province_name_full, "中国"),
-  name_en = c(province_en, "china"),
-  label = c(province, "中国"),
-  files = c(paste0(province_en, ".json"),"china.json"),
+  name = c(province_name_full, "中国", "南海诸岛"),
+  name_en = c(province_en, "china", "Nanhai"),
+  label = c(province, "中国", "南海"),
+  files = c(paste0(province_en, ".json"),"china.json",NaN),
   stringsAsFactors = FALSE
 )
 
 # does not work properly for chinise character
 # save(mapNames, file = "../R/sysrda.data")
-usethis::use_data(mapNames, internal = TRUE, overwrite = TRUE)
+usethis::use_data(mapNames, overwrite = TRUE)
 
