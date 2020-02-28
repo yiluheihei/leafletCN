@@ -17,7 +17,8 @@ Imports:
     sp,
     jsonlite,
     leaflet,
-    rgeos
+    rgeos,
+    maptools
 RoxygenNote: 7.0.2
 NeedsCompilation: no
 Packaged: 2017-01-01 14:10:21 UTC; chiffon
