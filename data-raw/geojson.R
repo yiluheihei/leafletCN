@@ -59,10 +59,10 @@ file.copy(province_to_json, "inst/geojson/")
 # reference city to json file ---------------------------------------------
 
 mapNames <- data.frame(
-  name = c(province_name_full, "中国", "南海诸岛"),
-  name_en = c(province_en, "china", "Nanhai"),
-  label = c(province, "中国", "南海"),
-  files = c(paste0(province_en, ".json"),"china.json",NaN),
+  name = c(province_name_full, "中国", "南海诸岛", "世界"),
+  name_en = c(province_en, "china", "Nanhai", "world"),
+  label = c(province, "中国", "南海", "世界"),
+  files = c(paste0(province_en, ".json"),"china.json",NaN, "countries.josn"),
   stringsAsFactors = FALSE
 )
 

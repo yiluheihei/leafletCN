@@ -12,7 +12,7 @@ encodingSolution = function(str){
 ## read function
 readGeoLocal = function(city){
   # query = toLabel(city)
-  if(!city %in% c(mapNames$name, mapNames$label, "china")){
+  if(!city %in% c(mapNames$name, mapNames$label, "china", "world")){
     stop(paste0("\n",
                 city,
                 ": this mapType cannot found!\n",
