@@ -4,4 +4,4 @@ README.md
 examples
 ^appveyor\.yml$
 ^.travis.yml$
-data-raw/
+^data-raw$

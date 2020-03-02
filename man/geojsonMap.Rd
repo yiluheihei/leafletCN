@@ -45,7 +45,7 @@ Simple function like addTiles()
 }
 \examples{
 dat = data.frame(name = regionNames("china"),
-                 value = runif(34))
+                 value = runif(35))
 geojsonMap(dat,"china")
 
 dat$value2 = cut(dat$value, c(0, 0.25, 0.5, 1))

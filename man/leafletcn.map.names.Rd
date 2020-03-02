@@ -3,9 +3,12 @@
 \docType{data}
 \name{leafletcn.map.names}
 \alias{leafletcn.map.names}
-\alias{.triList}
-\title{Demo dataset and other function}
+\title{A data file of words and frequency from tm package}
 \format{A data set cities and file names}
+\usage{
+leafletcn.map.names
+}
 \description{
 A data file of words and frequency from tm package
 }
+\keyword{datasets}

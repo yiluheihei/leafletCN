@@ -12,27 +12,33 @@ encodingSolution = function(str){
 ## read function
 readGeoLocal = function(city){
   # query = toLabel(city)
-  if(!city %in% c(mapNames$name, mapNames$label, "china", "world")){
-    stop(paste0("\n",
-                city,
-                ": this mapType cannot found!\n",
-                "Please check the mapType name or use icnov to convert encoding.\n",
-                "Valid mapTypes: regionNames()\n",
-                "Encoding convert: ?iconv"))
+  labels <-  c(
+    leafletcn.map.names$name,
+    leafletcn.map.names$label,
+    leafletcn.map.names$name_en
+  )
+  if (!city %in% labels){
+    stop(paste0(
+      "\n",
+      city,
+      ": this mapType cannot found!\n",
+      "Please check the mapType name or use icnov to convert encoding.\n",
+      "Valid mapTypes: regionNames()\n",
+      "Encoding convert: ?iconv")
+    )
   }
 
-  file = paste0(
-    "geojson/",
-    mapNames$files[mapNames$name == city | mapNames$label == city | mapNames$name_en == city]
-  )
+  index <- leafletcn.map.names$name == city |
+    leafletcn.map.names$label == city |
+    leafletcn.map.names$name_en == city
+  file = paste0("geojson/", leafletcn.map.names$files[index])
   filePath = system.file(file,package = "leafletCN")
 
   # output = rgdal::readOGR(filePath, "OGRGeoJSON")
   output = read.geoShape(filePath)
 
   # for taiwan
-  index <- mapNames$name == city | mapNames$label == city | mapNames$name_en == city
-  city_info <- mapNames[index, ]
+  city_info <- leafletcn.map.names[index, ]
   if (city_info$name_en == "Taiwan"){
     output$name <- city_info$label
   }
@@ -93,6 +99,7 @@ evalFormula = function(x, data) {
 #'
 #' https://cran.r-project.org/web/packages/maptools/vignettes/combine_maptools.pdf
 #' https://github.com/MatMatt/MODIS/commit/1b14974063b371a69987e5ee218ee66f132b2d61#diff-786518131335adf2d5c6c59e7f1665a1
+#' @noRd
 fix_orphaned_hole <- function(x) {
   polys <- slot(x, "polygons")
   fixed <- lapply(polys, maptools::checkPolygonsHoles)
