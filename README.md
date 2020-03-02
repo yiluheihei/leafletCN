@@ -3,6 +3,7 @@
 [![CRAN](https://www.r-pkg.org/badges/version/leafletCN)](https://cran.r-project.org/package=leafletCN)
 ![Downloads](https://cranlogs.r-pkg.org/badges/leafletCN)
 [![Build status](https://ci.appveyor.com/api/projects/status/id=2so0rgan193wo265?svg=true)](https://ci.appveyor.com/project/lchiffon/leafletCN)
+[![Build Status](https://travis-ci.com/yiluheihei/leafletCN.svg?branch=master)](https://travis-ci.com/yiluheihei/leafletCN)
 
 
 leafletCN是一个基于[leaflet](https://github.com/rstudio/leaflet)的中国扩展包, 里面保存了一些适用于中国的区域划分数据以及一些有帮助的函数, 地理区划数据来源于github的[geojson-map-china](https://github.com/longwosion/geojson-map-china)项目. 数据细分到县级市.

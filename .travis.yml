@@ -1,6 +1,9 @@
 language: r
 
 
+cache:
+  packages: true
+
 r_github_packages:
     - jimhester/covr
 
