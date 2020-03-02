@@ -2,6 +2,9 @@ library(magrittr)
 library(dplyr)
 library(purrr)
 
+
+# cities reference--------------------------------------------------------------
+
 get_china_cities <- function() {
   download.file("https://github.com/pzhaonet/ncovr/raw/master/inst/china_city_list.csv",
     destfile = "data-raw/china_city_list.csv")
@@ -18,9 +21,14 @@ get_china_cities <- function() {
   china_cities
 }
 china_cities <- get_china_cities()
+
+
+
 readr::write_csv(china_cities, "data-raw/china_city_list.csv", )
 usethis::use_data(china_cities, internal = TRUE, overwrite = TRUE)
 
+
+# correct ncov province and cities ---------------------------------------------
 
 # correct province name
 province <- regionNames("china")
