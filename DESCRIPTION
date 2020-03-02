@@ -18,7 +18,10 @@ Imports:
     jsonlite,
     leaflet,
     rgeos,
-    maptools
+    maptools,
+    methods
+Depends: R (>= 2.10)
+Encoding: UTF-8
 RoxygenNote: 7.0.2
 NeedsCompilation: no
 Packaged: 2017-01-01 14:10:21 UTC; chiffon

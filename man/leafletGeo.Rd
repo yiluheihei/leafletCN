@@ -22,7 +22,7 @@ mapType
 \examples{
 if(require(leaflet)){
   dat = data.frame(regionNames("china"),
-                                runif(34))
+                                runif(35))
   map = leafletGeo("china", dat)
 
    pal <- colorNumeric(

@@ -28,11 +28,14 @@ readGeoLocal = function(city){
     )
   }
 
-  index <- leafletcn.map.names$name == city |
-    leafletcn.map.names$label == city |
-    leafletcn.map.names$name_en == city
+  index <- leafletcn.map.names$name == city | leafletcn.map.names$label == city | leafletcn.map.names$name_en == city
   file = paste0("geojson/", leafletcn.map.names$files[index])
   filePath = system.file(file,package = "leafletCN")
+
+  # no nanhai json file
+  if (length(filePath) == 0) {
+    stop("Unfortunately, no geojson file for", city, " in leafletCN now\n")
+  }
 
   # output = rgdal::readOGR(filePath, "OGRGeoJSON")
   output = read.geoShape(filePath)
@@ -42,7 +45,7 @@ readGeoLocal = function(city){
   if (city_info$name_en == "Taiwan"){
     output$name <- city_info$label
   }
-  if(.Platform$OS.type == "windows"){
+  if (.Platform$OS.type == "windows"){
     output$name = encodingSolution(output$name)
   }
 
@@ -100,6 +103,7 @@ evalFormula = function(x, data) {
 #' https://cran.r-project.org/web/packages/maptools/vignettes/combine_maptools.pdf
 #' https://github.com/MatMatt/MODIS/commit/1b14974063b371a69987e5ee218ee66f132b2d61#diff-786518131335adf2d5c6c59e7f1665a1
 #' @noRd
+#' @importFrom methods slot
 fix_orphaned_hole <- function(x) {
   polys <- slot(x, "polygons")
   fixed <- lapply(polys, maptools::checkPolygonsHoles)
